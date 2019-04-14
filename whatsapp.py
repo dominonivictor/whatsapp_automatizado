@@ -1,6 +1,6 @@
 #Send automated whatsapp messages
 from selenium import webdriver
-from webzap import mandar_msg, abre_driver
+from webzap import mandar_msg, abre_driver, contatos_grupo
 
 #abre uma nova janela no site do Web WhatsApp
 driver = abre_driver()
@@ -16,8 +16,9 @@ repetir = True
 input('Pressione qualquer tecla após o scan')
 
 
-while repetir == True:
-    
+while repetir == True:   
+    contatos = contatos_grupo(driver)
+    if contatos: print(contatos)
     names, msg, vezes = mandar_msg(driver, names, msg, vezes=vezes)
     
     print('Deseja repetir toda a operação?(s/n)') 
