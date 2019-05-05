@@ -1,0 +1,17 @@
+﻿Basico
+- Achar contatos usando o modulo re (expressoes regulares), aceitando uma str em re e procurar por ela
+- Mensagens customizadas para cada contato
+- Mandar imagens, arquivos, links
+- Receber inputs do usuario para escolher contatos e mensagens especificas, diretamente no terminal OK!
+- Conectar as minhas variaveis PATH para acesso rápido
+- Listar os contatos que são pessoas e grupos separadamente
+
+Intermediario
+- Reutilizar um driver aberto para colocar novos inputs, (parcial) OK
+basicamente não ter que abrir um driver novo para cada vez que rodar o programa
+- Coletar o nome de todas as pessoas em um grupo OK parcial (falta conseguir ver de um grupo que o usuario nao é administrador)
+- Modularizar mais o código (0.2, 0.4)
+- Implementar conceitos de Orientação a Objetos ou Programação Funcional abrir um novo branch e tentar fazer essa mudança
+
+Avançado
+- Interface simples com opções de funcionalidades básicas e intermediarias 

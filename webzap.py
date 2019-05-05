@@ -2,13 +2,17 @@
 from selenium import webdriver
 from time import sleep
 
-def fazer_decisao(names, msg, vezes=1):
+def fazer_decisao(nomes, msg, vezes=1):
+    '''
+    Recebe os nomes salvos nas últimas sessões (na 1a iteração usa as constantes inicializadas) e recebe do usuario novas opções caso ele queira 
+    '''
+
     decisao = ''
     #Recebe o nome dos usuários/grupos para quem a mensagem será enviada
-    print('Deseja alterar os contatos que enviará a mensagem? (s/n) \nContatos: {}'.format(', '.join(names)))
+    print('Deseja alterar os contatos que enviará a mensagem? (s/n) \nContatos: {}'.format(', '.join(nomes)))
     decisao = input().lower()
     if decisao == 's':
-        names = input('''Insira os nomes dos contatos EXATAMENTE como estão no seu Whatsapp separados APENAS por virgula.\nex: Joao Pedro,Maria,Jose A. Fut\n''').split(',')
+        nomes = input('''Insira os nomes dos contatos EXATAMENTE como estão no seu Whatsapp separados APENAS por virgula.\nex: Joao Pedro,Maria,Jose A. Fut\n''').split(',')
     decisao = ''   
     #Recebe a mensagem que será enviada
     print('Deseja alterar a mensagem? (s/n) \nMensagem atual: {}'.format(msg))
@@ -24,18 +28,18 @@ def fazer_decisao(names, msg, vezes=1):
     decisao = ''
     
     
-    return (names, msg, vezes)
+    return (nomes, msg, vezes)
 
 #função para mandar 1 mensagem para diversos usuários 1 vez, com opção de aumentar 
 #o numero de mensagens, retorna os novos valores de contatos, msgs e vezes para serem
 #salvos para a próxima iteração
-def mandar_msg(driver, names, msg, vezes=1):
+def mandar_msg(driver, nomes, msg, vezes=1):
 
-    names, msg, vezes = fazer_decisao(names, msg, vezes)
+    nomes, msg, vezes = fazer_decisao(nomes, msg, vezes)
     #Aqui itera pela lista de nomes chamando cada item da iteração de nome
-    for name in names:
-        #Encontra o usuário colocado em name, salva em uma variável e clica nele
-        user = driver.find_element_by_xpath('//span[@title="{}"]'.format(name))
+    for nome in nomes:
+        #Encontra o usuário colocado em nome, salva em uma variável e clica nele
+        user = driver.find_element_by_xpath('//span[@title="{}"]'.format(nome))
         user.click()
         
         #para o numero na variavel vezes de iterações
@@ -53,7 +57,7 @@ def mandar_msg(driver, names, msg, vezes=1):
         #essa parte com algo que reconheça quando está pronto para continuar sem ocorrer o bug
         sleep(0.1)
     
-    return names, msg, vezes
+    return nomes, msg, vezes
         
 def abre_driver():
     #Abre o chrome e salva a uma variavel driver
@@ -65,7 +69,7 @@ def abre_driver():
     return driver
  
 
-#Esta bugado ainda pois entrega o nome de varios contatos, mesmo nao contidos no grupo, consertar o xpath 
+#Esta bugado ainda pois nao detecta contatos em grupos que o usuario nao é administrador 
 def contatos_grupo(driver, grupo='Musicas pro Mundo Ouvir'):
     decisao = ''
     print('Deseja ver os contatos de um grupo que você é administrador?(s/n)')
@@ -92,7 +96,7 @@ def contatos_grupo(driver, grupo='Musicas pro Mundo Ouvir'):
     
     for elem in caminho:
         contatos.append(elem.get_attribute("title"))
-
+    
     return contatos
     
     
